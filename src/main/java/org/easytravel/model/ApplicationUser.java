@@ -1,67 +1,42 @@
 package org.easytravel.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "application_user")
+@Table(name = "application_users")
+@Getter
+@Setter
 public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    @Column(nullable = false, unique = true)
     private String email;
     private String phoneNumber;
     private String password;
 
+    @OneToMany(mappedBy = "driver")
+    private List<RidePost> ridePosts;
+
+    @OneToMany(mappedBy = "passenger")
+    private List<Booking> bookings;
+
+
     public ApplicationUser() {}
-    public ApplicationUser(String email, Long id, String password, String phoneNumber, String username) {
+    public ApplicationUser(String email, String password, String phoneNumber, String username) {
         this.email = email;
-        this.id = id;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.username = username;
+        ridePosts = new ArrayList<>();
+        bookings = new ArrayList<>();
     }
 
-
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

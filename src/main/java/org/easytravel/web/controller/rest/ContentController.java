@@ -1,4 +1,4 @@
-package org.easytravel.web.controller;
+package org.easytravel.web.controller.rest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -2,12 +2,12 @@ package org.easytravel.service.implementation;
 
 import lombok.AllArgsConstructor;
 import org.easytravel.model.ApplicationUser;
+import org.easytravel.model.exceptions.ApplicationUserNotFoundException;
 import org.easytravel.repository.ApplicationUserRepository;
 import org.easytravel.service.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +38,10 @@ public class ApplicationUserServiceImplementation implements ApplicationUserServ
     @Override
     public ApplicationUser save(ApplicationUser user) {
         return applicationUserRepository.save(user);
+    }
+
+    @Override
+    public ApplicationUser findById(Long id) {
+        return applicationUserRepository.findById(id).orElseThrow(ApplicationUserNotFoundException::new);
     }
 }
